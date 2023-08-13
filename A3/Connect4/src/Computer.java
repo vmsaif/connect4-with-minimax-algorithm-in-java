@@ -7,6 +7,9 @@
     Part: 1
     Description: This class is the computer player. It uses the minimax algorithm and alpha-beta pruning to determine the best move.
 */
+
+
+
 public class Computer {
 
     private char[][] board;
@@ -26,6 +29,9 @@ public class Computer {
         this.bestMove = new int[2];
     }
 
+
+    // make the line buildup
+    // check linebuildup for WHITE player
     public void makeComputerMove() {
 
         if(Connect4.isWhiteTurn() == false) {
@@ -58,7 +64,7 @@ public class Computer {
             } // end for loop
             // now make the best move
             board[bestMove[0]][bestMove[1]] = BLACK;
-            Connect4.printBoard();
+            Connect4.printBoard("BLACK");
             // now switch turns
             Connect4.switchTurn();
         }
@@ -76,12 +82,13 @@ public class Computer {
         if(depth == 0 || blackWon || whiteWon || draw) {
             // evaluate the board from the computer's perspective
             if(blackWon){
-                result = 100 - depth;
+                result = 100 + depth;
             } else if(whiteWon){
-                result = -100 + depth;
+                result = -(100 + depth);
             } else if(draw){
                 result = 0;
             } else {
+                // need to implement line buildup here
                 result = 0; 
             }
         } else { // recursive case

@@ -32,6 +32,7 @@ public class Connect4 extends JFrame {
 
     public Connect4 (){}
 
+
     public void runGame() {
         initializeBoard();
         computer = new Computer(board, MAX_DEPTH);
@@ -69,7 +70,31 @@ public class Connect4 extends JFrame {
         }
     }
 
-    public void updateBoard() {
+    // make the moves when the user clicks on a drop button
+    private class ColumnButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (!gameOver) {
+                int column = Integer.parseInt(e.getActionCommand());
+                makeUserMove(column);
+                computer.makeComputerMove();
+                
+                setGridIcon();
+
+                if (checkWin(WHITE)) {
+                    JOptionPane.showMessageDialog(Connect4.this, "WHITE wins!");
+                    gameOver = true;
+                } else if (checkWin(BLACK)) {
+                    JOptionPane.showMessageDialog(Connect4.this, "BLACK wins!");
+                    gameOver = true;
+                } else if (checkDraw()) {
+                    JOptionPane.showMessageDialog(Connect4.this, "Draw!");
+                    gameOver = true;
+                }
+            }
+        }
+    }
+
+    public void setGridIcon() {
         Component[] components = boardPanel.getComponents();
         int index = COLUMNS; // start at the bottom left of the board by reducing the indexes of drop buttons
         for (int row = 0; row < ROWS; row++) {
@@ -86,30 +111,9 @@ public class Connect4 extends JFrame {
         }
     }
 
-    private class ColumnButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            if (!gameOver) {
-                int column = Integer.parseInt(e.getActionCommand());
-                makeUserMove(column);
-                computer.makeComputerMove();
-                
-                updateBoard();
 
-                if (checkWin(WHITE)) {
-                    JOptionPane.showMessageDialog(Connect4.this, "WHITE wins!");
-                    gameOver = true;
-                } else if (checkWin(BLACK)) {
-                    JOptionPane.showMessageDialog(Connect4.this, "BLACK wins!");
-                    gameOver = true;
-                } else if (checkDraw()) {
-                    JOptionPane.showMessageDialog(Connect4.this, "Draw!");
-                    gameOver = true;
-                }
-            }
-        }
-    }
-
-    public static void printBoard() {
+    public static void printBoard(String who) {
+        System.out.println(who + " made a move.");
         System.out.println("    [0][1][2][3][4][5][6]");
         for (int row = 0; row < ROWS; row++) {
             System.out.print("["+row+"]");
@@ -129,7 +133,7 @@ public class Connect4 extends JFrame {
                 if(isWhiteTurn) {
                     board[row][column] = WHITE;
                     moveMade = true;
-                    printBoard();
+                    printBoard("WHITE");
                 } 
             }
         }
