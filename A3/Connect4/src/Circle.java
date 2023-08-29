@@ -1,10 +1,7 @@
 /* -----------------------------------------------------------------------------
     Author: Saif Mahmud
     Date: 2023-02-08 (yyyy-dd-mm)
-    Course: COMP 452
-    Student ID: 3433058
-    Assignment: 3
-    Part: 1
+
     Description: This class is creates and draws a circle icon.
 */
 import java.awt.Color;
