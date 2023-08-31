@@ -1,0 +1,36 @@
+name: Build and Release Connect4
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Compile Java files
+      run: |
+        mkdir bin
+        javac -d ./bin ./src/*.java
+
+    - name: Package into Connect4.jar
+      run: |
+        jar cvf Connect4.jar -C ./bin/ .
+
+    - name: Create GitHub Release and Upload JAR
+      uses: gh-actions/gh-release@master
+      with:
+        filename: Connect4.jar
+        token: ${{ secrets.GITHUB_TOKEN }}
+        draft: false
