@@ -16,7 +16,8 @@ jobs:
     - name: Setup Java
       uses: actions/setup-java@v2
       with:
-        java-version: '11'  # You can adjust this to your desired Java version.
+        java-version: '11'  
+        distribution: 'adopt'
 
     - name: Compile Java files
       run: |
