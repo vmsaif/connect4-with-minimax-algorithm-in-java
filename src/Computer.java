@@ -79,10 +79,12 @@ public class Computer {
                     int countPlayerPieces = 0;
                     int countEmpty = 0;
 
+                    // Check each cell in the line upto winningLength
                     for (int i = 0; i < winningLength; i++) {
                         int newRow = row + dir[0] * i;
                         int newCol = col + dir[1] * i;
 
+                        // Check if the cell is on the board
                         if (newRow >= 0 && newRow < board.length && newCol >= 0 && newCol < board[0].length) {
                             if (board[newRow][newCol] == player) {
                                 countPlayerPieces++;
@@ -96,7 +98,7 @@ public class Computer {
                         int initialScore = (winningLength * 10) + 10; // for winningLength = 4, initialScore = 50
                         for (int i = 1; i < winningLength; i++){
                             if (countPlayerPieces == winningLength - i) {
-                                score += initialScore/i;  // Adjust as needed
+                                score += initialScore/i;  // Adjust as needed, I am just splitting by I to get 50, then 20, then 10 by this and next line.... For a winning length of 4
                                 initialScore = initialScore - 10;
                             }
                         }
