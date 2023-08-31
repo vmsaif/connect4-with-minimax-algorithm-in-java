@@ -5,8 +5,6 @@
     Description: This class is the computer player. It uses the minimax algorithm and alpha-beta pruning to determine the best move.
 */
 
-
-
 public class Computer {
 
     private char[][] board;
@@ -110,7 +108,7 @@ public class Computer {
     }
 
     
-       // minimax algorithm with alpha-beta pruning
+    // minimax algorithm with alpha-beta pruning
     private int minimax(int depth, int alpha, int beta, boolean isWhitesTurn) {
         int result = 0;
         boolean stopSearch = false;
