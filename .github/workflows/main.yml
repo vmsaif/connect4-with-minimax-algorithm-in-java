@@ -61,6 +61,9 @@ jobs:
         java-version: '16'
         distribution: 'temurin'
 
+    - name: Create Standalone for Windows
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type exe --dest .
+    
     - name: Rename Windows standalone
       run: move ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ env.VERSION }}.exe ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
 
@@ -81,6 +84,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Create Standalone for MacOS
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type dmg --dest .
 
     - name: Rename MacOS standalone
       run: mv ${{ env.FILE_NAME }}-1.0.dmg ${{ env.FILE_NAME }}-MacOS-${{ env.VERSION }}.dmg
@@ -103,6 +109,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Create Standalone for Ubuntu
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type deb --dest .
+    
     - name: Rename Ubuntu standalone
       run: mv ${{ env.FILE_NAME }}_1.0-1_amd64.deb ${{ env.FILE_NAME }}-Ubuntu-${{ env.VERSION }}_amd64.deb
 
