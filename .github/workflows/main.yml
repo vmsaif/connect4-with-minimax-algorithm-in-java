@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # Declare JAR_NAME as an environment variable
+    env:
+      JAR_NAME: Connect4.jar
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -24,9 +28,12 @@ jobs:
         mkdir bin
         javac -d ./bin ./src/*.java
 
-    - name: Package into Connect4.jar
+    - name: Package into JAR
       run: |
-        jar cvmf customManifest.txt Connect4.jar -C bin/ .
+        jar cvmf ${{ github.workspace }}/customManifest.txt ${{ env.JAR_NAME }} -C bin/ .
+
+    - name: Set JAR executable permission
+      run: chmod +x ${{ env.JAR_NAME }}
 
     - name: Create Release
       id: create_release
@@ -45,10 +52,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./Connect4.jar
-        asset_name: Connect4.jar
+        asset_path: ./${{ env.JAR_NAME }}
+        asset_name: ${{ env.JAR_NAME }}
         asset_content_type: application/java-archive
-
-
-
-
