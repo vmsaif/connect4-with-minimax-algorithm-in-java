@@ -12,6 +12,20 @@ The AI uses the minimax algorithm with alpha-beta pruning to determine the best 
 
 The AI will also use alpha-beta pruning to reduce the number of nodes that need to be evaluated. Alpha-beta pruning will reduce the number of nodes that are bad moves by either the AI or the user. This will make the AI more efficient and faster. 
 
+## Running the Program
+
+- Make sure you have JRE installed on your computer. You can download JRE [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
+
+You can download the release version of the program [here](https://github.com/vmsaif/connect4-with-minimax-algorithm-in-java/releases). The program is packaged as a JAR file. You can run the program by double-clicking on the JAR file.
+
+After downloading the JAR file, you might need to give the JAR file permission to run. You can do this by running the following command in the terminal:
+
+- Go the directory where the JAR file is downloaded
+- `cd ~/Downloads` (or wherever the JAR file is downloaded)
+- Run `chmod +x connect4.jar`
+
+
+
 ## Compiling and Running
 ### Compiling
 The game is written in Java and can be compiled using the following steps:
@@ -19,6 +33,8 @@ The game is written in Java and can be compiled using the following steps:
 - Go to the root directory
 - Run the command `javac -d bin src/*.java` to compile the Java file.
 - Run the command `java -cp bin/ App` to run the game.
+
+
 
 ## Bugs:
 I have not found any bugs in the program yet. If you find any, please let me know.
