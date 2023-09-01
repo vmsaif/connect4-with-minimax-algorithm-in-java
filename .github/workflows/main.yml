@@ -30,7 +30,7 @@ jobs:
 
     - name: Package into JAR
       run: |
-        jar cvmf ${{ github.workspace }}/customManifest.txt ${{ env.JAR_NAME }} -C bin/ .
+        jar cvf ${{ github.workspace }}/customManifest.txt ${{ env.JAR_NAME }} -C bin/ .
 
     - name: Set JAR executable permission
       run: chmod +x ${{ env.JAR_NAME }}
