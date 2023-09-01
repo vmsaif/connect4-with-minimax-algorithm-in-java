@@ -72,8 +72,11 @@ jobs:
         java-version: '16'
         distribution: 'temurin'
 
+    - name: List contents of out directory
+      run: ls ${{ env.OUT_DIR }}/
+
     - name: Create Standalone for Windows
-      run: jpackage --input ${{ env.OUT_DIR }} --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type exe
+      run: jpackage --input ${{ github.workspace }}/${{ env.OUT_DIR }} --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type exe
 
     - name: Attach Windows Standalone to Release
       uses: actions/upload-release-asset@v1
@@ -84,6 +87,7 @@ jobs:
         asset_path: ./Connect4.exe
         asset_name: Connect4-Windows.exe
         asset_content_type: application/octet-stream
+      
 
   mac_build:
     needs: build
