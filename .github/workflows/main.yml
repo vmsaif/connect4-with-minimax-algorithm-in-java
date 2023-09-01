@@ -5,36 +5,31 @@ on:
     tags:
       - 'v*'
 
+env:
+  FILE_NAME: Connect4
+  OUT_DIR: out
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      JAR_NAME: Connect4.jar
-      OUT_DIR: out
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup Java 16
-      uses: actions/setup-java@v2
-      with:
-        java-version: '16'
-        distribution: 'temurin'
-
-    - name: Compile and Package to JAR
+    - name: Compile and Build JAR
       run: |
-        mkdir $OUT_DIR
-        javac -d $OUT_DIR src/*.java
-        jar cvfm $OUT_DIR/$JAR_NAME customManifest.txt -C $OUT_DIR .
+        mkdir ${{ env.OUT_DIR }}
+        javac -d ${{ env.OUT_DIR }} src/*.java
+        jar cvfm ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}.jar customManifest.txt -C ${{ env.OUT_DIR }} ./
 
-    - name: Upload JAR as artifact
+    - name: Upload JAR as Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: Connect4-jar
-        path: ./out/${{ env.JAR_NAME }}
+        name: ${{ env.FILE_NAME }}-jar
+        path: ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}.jar
 
-    - name: Create Release
+    - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
       env:
@@ -43,15 +38,9 @@ jobs:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
 
-    outputs:
-      release_upload_url: ${{ steps.create_release.outputs.upload_url }}
-
   windows_build:
     needs: build
     runs-on: windows-latest
-    env:
-      JAR_NAME: Connect4.jar
-      OUT_DIR: out
 
     steps:
     - name: Checkout code
@@ -60,8 +49,8 @@ jobs:
     - name: Download JAR from artifact
       uses: actions/download-artifact@v2
       with:
-        name: Connect4-jar
-        path: ./out/
+        name: ${{ env.FILE_NAME }}-jar
+        path: ${{ env.OUT_DIR }}
 
     - name: Setup Java 16
       uses: actions/setup-java@v2
@@ -70,24 +59,23 @@ jobs:
         distribution: 'temurin'
 
     - name: Create Standalone for Windows
-      run: jpackage --input ${{ env.OUT_DIR }} --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type exe
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type exe --output .
 
     - name: Attach Windows Standalone to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ./Connect4.exe
-        asset_name: Connect4-Windows.exe
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./${{ env.FILE_NAME }}.exe
+        asset_name: ${{ env.FILE_NAME }}-Windows.exe
         asset_content_type: application/octet-stream
 
-  mac_build:
+  # Repeat similar steps for MacOS and Ubuntu
+
+  macos_build:
     needs: build
-    runs-on: macOS-latest
-    env:
-      JAR_NAME: Connect4.jar
-      OUT_DIR: out
+    runs-on: macos-latest
 
     steps:
     - name: Checkout code
@@ -96,8 +84,8 @@ jobs:
     - name: Download JAR from artifact
       uses: actions/download-artifact@v2
       with:
-        name: Connect4-jar
-        path: ./out/
+        name: ${{ env.FILE_NAME }}-jar
+        path: ${{ env.OUT_DIR }}
 
     - name: Setup Java 16
       uses: actions/setup-java@v2
@@ -105,25 +93,22 @@ jobs:
         java-version: '16'
         distribution: 'temurin'
 
-    - name: Create Standalone for macOS
-      run: jpackage --input ${{ env.OUT_DIR }} --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type dmg
+    - name: Create Standalone for MacOS
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type dmg --output .
 
-    - name: Attach macOS Standalone to Release
+    - name: Attach MacOS Standalone to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ./Connect4.dmg
-        asset_name: Connect4-MacOS.dmg
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./${{ env.FILE_NAME }}.dmg
+        asset_name: ${{ env.FILE_NAME }}-MacOS.dmg
         asset_content_type: application/octet-stream
 
   ubuntu_build:
     needs: build
     runs-on: ubuntu-latest
-    env:
-      JAR_NAME: Connect4.jar
-      OUT_DIR: out
 
     steps:
     - name: Checkout code
@@ -132,8 +117,8 @@ jobs:
     - name: Download JAR from artifact
       uses: actions/download-artifact@v2
       with:
-        name: Connect4-jar
-        path: ./out/
+        name: ${{ env.FILE_NAME }}-jar
+        path: ${{ env.OUT_DIR }}
 
     - name: Setup Java 16
       uses: actions/setup-java@v2
@@ -142,15 +127,14 @@ jobs:
         distribution: 'temurin'
 
     - name: Create Standalone for Ubuntu
-      run: jpackage --input ${{ env.OUT_DIR }} --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type deb
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type deb --output .
 
     - name: Attach Ubuntu Standalone to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ./Connect4.deb
-        asset_name: Connect4-Ubuntu.deb
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./${{ env.FILE_NAME }}.deb
+        asset_name: ${{ env.FILE_NAME }}-Ubuntu.deb
         asset_content_type: application/octet-stream
-
