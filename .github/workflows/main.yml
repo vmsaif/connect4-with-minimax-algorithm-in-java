@@ -64,6 +64,10 @@ jobs:
     - name: Create Standalone for Windows
       run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class src.App --type exe --dest .
       
+    - name: List contents of out directory (Windows)
+      run: Get-ChildItem -Path ${{ env.OUT_DIR }}
+    
+
     - name: Rename Windows standalone
       run: move ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ env.VERSION }}.exe ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
 
@@ -84,6 +88,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: List contents of out directory
+      run: ls ${{ env.OUT_DIR }}
 
     - name: Create Standalone for MacOS
       run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class src.App --type dmg --dest .
@@ -109,6 +116,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: List contents of out directory
+      run: ls ${{ env.OUT_DIR }}
+    
     - name: Create Standalone for Ubuntu
       run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class src.App --type deb --dest .
     
