@@ -12,6 +12,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      release_upload_url: ${{ steps.create_release.outputs.upload_url }}
 
     steps:
     - name: Checkout code
@@ -59,14 +61,13 @@ jobs:
         distribution: 'temurin'
 
     - name: Create Standalone for Windows
-      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type exe --output .
-
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type exe --dest .
     - name: Attach Windows Standalone to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        upload_url: ${{ needs.build.outputs.release_upload_url }}
         asset_path: ./${{ env.FILE_NAME }}.exe
         asset_name: ${{ env.FILE_NAME }}-Windows.exe
         asset_content_type: application/octet-stream
@@ -94,14 +95,13 @@ jobs:
         distribution: 'temurin'
 
     - name: Create Standalone for MacOS
-      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type dmg --output .
-
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type dmg --dest .
     - name: Attach MacOS Standalone to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        upload_url: ${{ needs.build.outputs.release_upload_url }}
         asset_path: ./${{ env.FILE_NAME }}.dmg
         asset_name: ${{ env.FILE_NAME }}-MacOS.dmg
         asset_content_type: application/octet-stream
@@ -127,14 +127,13 @@ jobs:
         distribution: 'temurin'
 
     - name: Create Standalone for Ubuntu
-      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type deb --output .
-
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type deb --dest .
     - name: Attach Ubuntu Standalone to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        upload_url: ${{ needs.build.outputs.release_upload_url }}
         asset_path: ./${{ env.FILE_NAME }}.deb
         asset_name: ${{ env.FILE_NAME }}-Ubuntu.deb
         asset_content_type: application/octet-stream
