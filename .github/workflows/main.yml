@@ -12,6 +12,7 @@ jobs:
       release_upload_url: ${{ steps.create_release.outputs.upload_url }}
     env:
       JAR_NAME: Connect4.jar
+      OUT_DIR: out
 
     steps:
     - name: Checkout code
@@ -29,7 +30,9 @@ jobs:
         javac -d ./bin ./src/*.java
 
     - name: Package into JAR
-      run: jar cvmf ${{ github.workspace }}/customManifest.txt ${{ env.JAR_NAME }} -C bin/ .
+      run: |
+        mkdir ${{ env.OUT_DIR }}
+        jar cvmf ${{ github.workspace }}/customManifest.txt ${{ env.OUT_DIR }}/${{ env.JAR_NAME }} -C bin/ .
 
     - name: Create Release
       id: create_release
@@ -48,7 +51,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./${{ env.JAR_NAME }}
+        asset_path: ./${{ env.OUT_DIR }}/${{ env.JAR_NAME }}
         asset_name: ${{ env.JAR_NAME }}
         asset_content_type: application/java-archive
 
@@ -57,6 +60,7 @@ jobs:
     runs-on: windows-latest
     env:
       JAR_NAME: Connect4.jar
+      OUT_DIR: out
 
     steps:
     - name: Checkout code
@@ -69,7 +73,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Create Standalone for Windows
-      run: jpackage --input . --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type exe
+      run: jpackage --input ${{ env.OUT_DIR }} --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type exe
 
     - name: Attach Windows Standalone to Release
       uses: actions/upload-release-asset@v1
@@ -86,6 +90,7 @@ jobs:
     runs-on: macos-latest
     env:
       JAR_NAME: Connect4.jar
+      OUT_DIR: out
 
     steps:
     - name: Checkout code
@@ -98,7 +103,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Create Standalone for macOS
-      run: jpackage --input . --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type dmg
+      run: jpackage --input ${{ env.OUT_DIR }} --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type dmg
 
     - name: Attach macOS Standalone to Release
       uses: actions/upload-release-asset@v1
@@ -115,6 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JAR_NAME: Connect4.jar
+      OUT_DIR: out
 
     steps:
     - name: Checkout code
@@ -127,7 +133,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Create Standalone for Ubuntu
-      run: jpackage --input . --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type deb
+      run: jpackage --input ${{ env.OUT_DIR }} --name Connect4 --main-jar ${{ env.JAR_NAME }} --main-class src.App --type deb
 
     - name: Attach Ubuntu Standalone to Release
       uses: actions/upload-release-asset@v1
