@@ -128,6 +128,14 @@ jobs:
 
     - name: Create Standalone for Ubuntu
       run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type deb --dest .
+
+    - name: List directory contents
+      run: ls -al
+    
+    - name: Print current working directory
+      run: pwd
+
+    
     - name: Attach Ubuntu Standalone to Release
       uses: actions/upload-release-asset@v1
       env:
