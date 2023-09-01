@@ -8,6 +8,7 @@ on:
 env:
   FILE_NAME: connect4
   OUT_DIR: out
+  VERSION: ${{ github.ref_name }}
 
 jobs:
   build:
@@ -23,13 +24,13 @@ jobs:
       run: |
         mkdir ${{ env.OUT_DIR }}
         javac -d ${{ env.OUT_DIR }} src/*.java
-        jar cvfm ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}.jar customManifest.txt -C ${{ env.OUT_DIR }} ./
+        jar cvfm ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ env.VERSION }}.jar customManifest.txt -C ${{ env.OUT_DIR }} ./
 
     - name: Upload JAR as Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ env.FILE_NAME }}-jar
-        path: ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}.jar
+        name: ${{ env.FILE_NAME }}-jar-${{ env.VERSION }}
+        path: ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ env.VERSION }}.jar
 
     - name: Create GitHub Release
       id: create_release
@@ -51,7 +52,7 @@ jobs:
     - name: Download JAR from artifact
       uses: actions/download-artifact@v2
       with:
-        name: ${{ env.FILE_NAME }}-jar
+        name: ${{ env.FILE_NAME }}-jar-${{ env.VERSION }}
         path: ${{ env.OUT_DIR }}
 
     - name: Setup Java 16
@@ -60,13 +61,8 @@ jobs:
         java-version: '16'
         distribution: 'temurin'
 
-    - name: Create Standalone for Windows
-      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type exe --dest .
-    
-    - name: List directory contents
-      run: Get-ChildItem -Force
-      shell: pwsh
-    
+    - name: Rename Windows standalone
+      run: move ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ env.VERSION }}.exe ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
 
     - name: Attach Windows Standalone to Release
       uses: actions/upload-release-asset@v1
@@ -74,49 +70,29 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ./${{ env.FILE_NAME }}.exe
-        asset_name: ${{ env.FILE_NAME }}-Windows.exe
+        asset_path: ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
+        asset_name: ${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
         asset_content_type: application/octet-stream
-
-  # Repeat similar steps for MacOS and Ubuntu
 
   macos_build:
     needs: build
-    runs-on: macos-latest
+    runs-on: macOS-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Download JAR from artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: ${{ env.FILE_NAME }}-jar
-        path: ${{ env.OUT_DIR }}
+    - name: Rename MacOS standalone
+      run: mv ${{ env.FILE_NAME }}-1.0.dmg ${{ env.FILE_NAME }}-MacOS-${{ env.VERSION }}.dmg
 
-    - name: Setup Java 16
-      uses: actions/setup-java@v2
-      with:
-        java-version: '16'
-        distribution: 'temurin'
-
-    - name: Create Standalone for MacOS
-      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type dmg --dest .
-    
-    - name: List directory contents
-      run: ls -al
-    
-    - name: Print current working directory
-      run: pwd
-    
     - name: Attach MacOS Standalone to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ./${{ env.FILE_NAME }}.dmg
-        asset_name: ${{ env.FILE_NAME }}-MacOS.dmg
+        asset_path: ./${{ env.FILE_NAME }}-MacOS-${{ env.VERSION }}.dmg
+        asset_name: ${{ env.FILE_NAME }}-MacOS-${{ env.VERSION }}.dmg
         asset_content_type: application/octet-stream
 
   ubuntu_build:
@@ -127,34 +103,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Download JAR from artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: ${{ env.FILE_NAME }}-jar
-        path: ${{ env.OUT_DIR }}
+    - name: Rename Ubuntu standalone
+      run: mv ${{ env.FILE_NAME }}_1.0-1_amd64.deb ${{ env.FILE_NAME }}-Ubuntu-${{ env.VERSION }}_amd64.deb
 
-    - name: Setup Java 16
-      uses: actions/setup-java@v2
-      with:
-        java-version: '16'
-        distribution: 'temurin'
-
-    - name: Create Standalone for Ubuntu
-      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}.jar --main-class src.App --type deb --dest .
-
-    - name: List directory contents
-      run: ls -al
-    
-    - name: Print current working directory
-      run: pwd
-
-    
     - name: Attach Ubuntu Standalone to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ./${{ env.FILE_NAME }}.deb
-        asset_name: ${{ env.FILE_NAME }}-Ubuntu.deb
+        asset_path: ./${{ env.FILE_NAME }}-Ubuntu-${{ env.VERSION }}_amd64.deb
+        asset_name: ${{ env.FILE_NAME }}-Ubuntu-${{ env.VERSION }}_amd64.deb
         asset_content_type: application/octet-stream
