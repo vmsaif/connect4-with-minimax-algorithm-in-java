@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '11'  
-        distribution: 'adopt'
+        distribution: 'temurin'
 
     - name: Compile Java files
       run: |
@@ -26,13 +26,13 @@ jobs:
 
     - name: Package into Connect4.jar
       run: |
-        jar cvf Connect4.jar -C ./bin/ .
+        jar cvmf META-INF/MANIFEST.MF Connect4.jar -C bin/ .
 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.R }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
