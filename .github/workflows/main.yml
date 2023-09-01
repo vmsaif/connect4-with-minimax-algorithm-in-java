@@ -56,7 +56,7 @@ jobs:
         path: ${{ env.OUT_DIR }}
     
     - name: Create Standalone for MacOS
-      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class src.App --type dmg --dest .
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class App --type dmg --dest .
     
     - name: List contents of out directory
       run: ls ${{ env.OUT_DIR }}
@@ -87,9 +87,9 @@ jobs:
       with:
         name: ${{ env.FILE_NAME }}-jar-${{ env.VERSION }}
         path: ${{ env.OUT_DIR }}
-        
+
     - name: Create Standalone for Ubuntu
-      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class src.App --type deb --dest .
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class App --type deb --dest .
     
     - name: List contents of out directory
       run: ls ${{ env.OUT_DIR }}
@@ -128,7 +128,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Create Standalone for Windows
-      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class src.App --type exe --dest .
+      run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class App --type exe --dest .
       
     - name: List contents of out directory (Windows)
       run: Get-ChildItem -Path ${{ env.OUT_DIR }}
