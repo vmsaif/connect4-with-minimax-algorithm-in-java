@@ -16,7 +16,7 @@ The AI will also use alpha-beta pruning to reduce the number of nodes that need 
 
 - Make sure you have JRE installed on your computer. You can download JRE [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
 
-You can download the release version of the program [here](https://github.com/vmsaif/connect4-with-minimax-algorithm-in-java/releases). The program is packaged as a JAR file. You can run the program by double-clicking on the JAR file.
+You can download the release version of the Game from the latest release [here](https://github.com/vmsaif/connect4-with-minimax-algorithm-in-java/releases). The program is packaged as a JAR file. You can run the program by double-clicking on the JAR file.
 
 After downloading the JAR file, you might need to give the JAR file permission to run. You can do this by running the following command in the terminal:
 
