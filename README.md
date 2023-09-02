@@ -16,7 +16,7 @@ The AI will also use alpha-beta pruning to reduce the number of nodes that need 
 
 - Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
 
-You can download the release version of the Game from the latest release [here](https://github.com/vmsaif/connect4-with-minimax-algorithm-in-java/releases). The program is packaged as a JAR file. You can run the program by double-clicking on the JAR file.
+Downloading the jar file is preferred. You can download the release version of the Game from the latest release [here](https://github.com/vmsaif/connect4-with-minimax-algorithm-in-java/releases). The program is packaged as a JAR file. You can run the program by double-clicking on the JAR file.
 
 ## **Ubuntu**
 
@@ -43,6 +43,8 @@ You can download the release version of the Game from the latest release [here](
 
 ## **macOS**
 
+Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
+
 1. **Navigate to the Download Location** (using Terminal):
    ```bash
    cd ~/Downloads
@@ -61,11 +63,14 @@ You can download the release version of the Game from the latest release [here](
 ## **Windows**
 
 1. **Confirming Java**:
-   Ensure that Java is installed and added to your `PATH` so that it can be accessed from the command prompt. (Most installers will do this for you.) To check if Java is installed, run the following command in Command Prompt or PowerShell:
-     ```bash
-     java -version
-     ```
-     If Java is installed, you should see the version number. If you see an error, you need to install Java. See above for instructions on installing Java.
+
+   Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
+
+   Ensure that Java is added to your `PATH` so that it can be accessed from the command prompt. (Most installers will do this for you.) To check if Java is installed, run the following command in Command Prompt or PowerShell:
+   ```bash
+   java -version
+   ```
+   If Java is installed, you should see the version number. If you see an error, you need to install Java. See above for instructions on installing Java.
 
 2. **Navigate to the Download Location** (using Command Prompt or PowerShell):
    ```bash
