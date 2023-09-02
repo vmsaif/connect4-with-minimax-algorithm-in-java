@@ -14,19 +14,73 @@ The AI will also use alpha-beta pruning to reduce the number of nodes that need 
 
 ## Running the Program
 
-- Make sure you have JRE installed on your computer. You can download JRE [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
+- Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
 
 You can download the release version of the Game from the latest release [here](https://github.com/vmsaif/connect4-with-minimax-algorithm-in-java/releases). The program is packaged as a JAR file. You can run the program by double-clicking on the JAR file.
 
-After downloading the JAR file, you might need to give the JAR file permission to run. You can do this by running the following command in the terminal:
+## **Ubuntu**
 
-- Go the directory where the JAR file is downloaded
-- `cd ~/Downloads` (or wherever the JAR file is downloaded)
-- Run `chmod +x connect4.jar`
+1. **Installing Java** (if it's not already installed):
+   ```bash
+   sudo apt update
+   sudo apt install default-jre
+   ```
+
+2. **Navigate to the Download Location**:
+   ```bash
+   cd ~/Downloads
+   ```
+
+3. **Provide Execute Permissions** (Optional, but useful if you want to execute it directly):
+   ```bash
+   chmod +x connect4-1.0.0.jar # Replace the filename with the name of the JAR file you downloaded
+   ```
+
+4. **Run the JAR File**:
+   ```bash
+   java -jar connect4-1.0.0.jar # Replace the filename with the name of the JAR file you downloaded
+   ```
+
+## **macOS**
+
+1. **Navigate to the Download Location** (using Terminal):
+   ```bash
+   cd ~/Downloads
+   ```
+
+3. **Provide Execute Permissions** (Optional):
+   ```bash
+   chmod +x connect4-1.0.0.jar # Replace the filename with the name of the JAR file you downloaded
+   ```
+
+4. **Run the JAR File**:
+   ```bash
+   java -jar connect4-1.0.0.jar # Replace the filename with the name of the JAR file you downloaded
+   ```
+
+## **Windows**
+
+1. **Confirming Java**:
+   Ensure that Java is installed and added to your `PATH` so that it can be accessed from the command prompt. (Most installers will do this for you.) To check if Java is installed, run the following command in Command Prompt or PowerShell:
+     ```bash
+     java -version
+     ```
+     If Java is installed, you should see the version number. If you see an error, you need to install Java. See above for instructions on installing Java.
+
+2. **Navigate to the Download Location** (using Command Prompt or PowerShell):
+   ```bash
+   cd c:\Users\username\Downloads # Replace username with your username
+   ```
+
+3. **Run the JAR File**:
+   ```bash
+   java -jar connect4-1.0.0.jar
+   ```
+
+In all cases, once the commands are followed, the Java application packaged inside the JAR file should start running.
 
 
-
-## Compiling and Running
+## Compiling and Running (Advanced)
 ### Compiling
 The game is written in Java and can be compiled using the following steps:
 
@@ -35,6 +89,5 @@ The game is written in Java and can be compiled using the following steps:
 - Run the command `java -cp bin/ App` to run the game.
 
 
-
 ## Bugs:
-I have not found any bugs in the program yet. If you find any, please let me know.
+I have not found any bugs in the program yet. If you find any, please let me know by opening an issue from the issue tab.
