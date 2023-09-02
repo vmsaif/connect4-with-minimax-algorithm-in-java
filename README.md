@@ -42,7 +42,27 @@ Downloading the jar file is preferred. You can download the release version of t
    ```
 
 ## **macOS**
+There are 2 methods. Downloading the dmg file or downloading the jar file. 
+### Option 1: Downloading the DMG File (simpler)
+I am not a registered Apple developer, That is why you will get a warning when you try to open the app. Thus, you will have to bypass the security settings to run the app.
+Here are the steps:
 
+1. Click on the .dmg file you downloaded. 
+
+2. Drag the app to the Applications folder.
+
+3. In the Finder <img src="https://help.apple.com/assets/63BCA927AAE78C58DD7FBE35/63BCA92EAAE78C58DD7FBE76/en_US/058e4af8e726290f491044219d2eee73.png" alt="" height="15" width="15" originalimagename="SharedGlobalArt/AppIconTopic_Finder.png"> on your Mac, locate the Connect4 app.
+
+   (Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.)
+
+4. Press and hold Control then click the app icon.
+
+5. Click Open.
+
+   The app is saved as an exception to your security settings, and you can open it in the future by double-clicking it just as you can any registered app.
+
+
+### Option 2: Downloading the JAR File
 Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
 
 1. **Navigate to the Download Location** (using Terminal):
