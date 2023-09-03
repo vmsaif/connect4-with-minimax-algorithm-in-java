@@ -23,6 +23,9 @@ jobs:
     - name: Extract release notes
       id: extract-release-notes
       uses: ffurrer2/extract-release-notes@v1.17.0
+      with:
+        changelog_file: CHANGELOG.md
+  
 
     - name: Compile and Build JAR
       run: |
