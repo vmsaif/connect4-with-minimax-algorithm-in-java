@@ -31,7 +31,7 @@ cd ~/Downloads
 2. Run the following command to install the package:
 
 ```bash
-sudo dpkg -i ./connect4_1.0.0_amd64.deb -y # Replace the filename/version with the name of the DEB file you downloaded
+sudo dpkg -i ./connect4-v1.1.0-linux_amd64.deb # Replace the filename/version with the name of the DEB file you downloaded
 ```
 3. If you get an error, run the following command to install the dependencies:
 
@@ -74,7 +74,7 @@ There are 2 methods. Downloading the dmg file or downloading the jar file.
 I am not a registered Apple developer, That is why you will get a warning when you try to open the app. Thus, you will have to bypass the security settings to run the app.
 Here are the steps:
 
-1. Click on the .dmg file you downloaded. 
+1. Click on the .dmg file you have downloaded. 
 
 2. Drag the app to the Applications folder.
 
