@@ -203,7 +203,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}.exe
+        asset_path: ${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}.exe
         asset_name: ${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}-windows.exe
         asset_content_type: application/octet-stream
 
