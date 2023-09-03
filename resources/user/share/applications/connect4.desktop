@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Connect4
+Exec=/opt/connect4/bin/connect4
+Icon=/opt/connect4/connect4-512.png
+Comment=Play Connect4 game
+Terminal=false
+Categories=Game;

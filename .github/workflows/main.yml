@@ -7,6 +7,7 @@ on:
 
 env:
   FILE_NAME: connect4
+  ICON_NAME: connect4-512
   MAIN_CLASS: App
   OUT_DIR: out
   VERSION: ${{ github.ref_name }}
@@ -86,14 +87,17 @@ jobs:
                   --name ${{ env.FILE_NAME }} \
                   --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar \
                   --main-class ${{ env.MAIN_CLASS }} \
+                  --icon assets/icon/${{ env.ICON_NAME }}.icns \
+                  --app-version ${{ env.VERSION }} \
                   --type dmg \
                   --dest .
+
 
     - name: List contents of out directory
       run: ls ${{ env.OUT_DIR }}
 
-    - name: Rename MacOS standalone
-      run: mv ${{ env.FILE_NAME }}-1.0.dmg ${{ env.FILE_NAME }}-MacOS-${{ env.VERSION }}.dmg
+    # - name: Rename MacOS standalone
+    #   run: mv ${{ env.FILE_NAME }}-1.0.dmg ${{ env.FILE_NAME }}-MacOS-${{ env.VERSION }}.dmg
 
     - name: Attach MacOS Standalone to Release
       uses: actions/upload-release-asset@v1
@@ -125,14 +129,17 @@ jobs:
                   --name ${{ env.FILE_NAME }} \
                   --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar \
                   --main-class ${{ env.MAIN_CLASS }} \
+                  --icon assets/icon/${{ env.ICON_NAME }}.png \
+                  --resource-dir resources \
+                  --app-version ${{ env.VERSION }} \
                   --type deb \
                   --dest .
 
     - name: List contents of out directory
       run: ls -lh .
 
-    - name: Rename Ubuntu standalone
-      run: mv ${{ env.FILE_NAME }}_1.0-1_amd64.deb ${{ env.FILE_NAME }}-Ubuntu-${{ env.VERSION }}_amd64.deb
+    # - name: Rename Ubuntu standalone
+    #   run: mv ${{ env.FILE_NAME }}_1.0-1_amd64.deb ${{ env.FILE_NAME }}-Ubuntu-${{ env.VERSION }}_amd64.deb
 
     - name: Attach Ubuntu Standalone to Release
       uses: actions/upload-release-asset@v1
@@ -167,18 +174,20 @@ jobs:
     - name: Create Standalone for Windows
       run: |
         jpackage --input out `
-                --name connect4 `
-                --main-jar connect4-v1.1.0.jar `
-                --main-class App `
+                --name ${{ env.FILE_NAME }} `
+                --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar `
+                --main-class ${{ env.MAIN_CLASS }} `
+                --icon assets/icon/${{ env.ICON_NAME }}.ico `
                 --win-shortcut `
+                --app-version ${{ env.VERSION }} `
                 --type exe `
                 --dest .
 
     - name: List contents of out directory (Windows)
       run: Get-ChildItem -Path .
     
-    - name: Rename Windows standalone
-      run: move ${{ env.FILE_NAME }}-1.0.exe ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
+    # - name: Rename Windows standalone
+    #   run: move ${{ env.FILE_NAME }}-1.0.exe ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
 
     - name: Attach Windows Standalone to Release
       uses: actions/upload-release-asset@v1

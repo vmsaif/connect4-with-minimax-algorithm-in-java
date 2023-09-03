@@ -20,6 +20,33 @@ Downloading the jar file is preferred. You can download the release version of t
 
 ## **Ubuntu**
 
+### Option 1: Downloading the DEB File (simpler)
+
+1. Open the terminal and navigate to the directory where you downloaded the .deb file.
+
+```bash
+cd ~/Downloads
+```
+
+2. Run the following command to install the package:
+
+```bash
+sudo dpkg -i ./connect4_1.0.0_amd64.deb -y # Replace the filename/version with the name of the DEB file you downloaded
+```
+3. If you get an error, run the following command to install the dependencies:
+
+```bash
+sudo apt-get install -f
+```
+
+4. Run the following command to start the game:
+
+```bash
+/opt/connect4/bin/connect4
+```
+
+### Option 2: Downloading the JAR File
+
 1. **Installing Java** (if it's not already installed):
    ```bash
    sudo apt update
@@ -116,3 +143,6 @@ The game is written in Java and can be compiled using the following steps:
 
 ## Bugs:
 I have not found any bugs in the program yet. If you find any, please let me know by opening an issue from the issue tab.
+
+## Acknowledgements
+- [Icon](https://icon-icons.com/icon/grid-board-cell-table/187134)
