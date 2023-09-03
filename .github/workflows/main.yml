@@ -35,8 +35,9 @@ jobs:
     - name: Extract Changelog for Current Release
       id: extract_changelog
       run: |
-        content=$(awk "/\[${{ env.VERSION }}\]/,0" CHANGELOG.md | sed ':a;N;$!ba;s/\n/\\n/g')
+        content=$(awk "/\[${{ env.VERSION }}\]/,/\[.*\] -/" CHANGELOG.md | sed '$d' | sed ':a;N;$!ba;s/\n/\\n/g')
         echo "RELEASE_NOTES=$content" >> $GITHUB_ENV 
+      
       
 
     - name: Create GitHub Release
@@ -46,7 +47,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        release_name: ${{ github.ref }}
         body: ${{ env.RELEASE_NOTES }}
 
     - name: Attach JAR to Release
