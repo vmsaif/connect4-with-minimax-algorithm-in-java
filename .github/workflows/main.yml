@@ -42,8 +42,10 @@ jobs:
       
     - name: Debugging Release Notes
       run: |
-        release_notes=$(echo '${{ steps.extract_changelog.outputs.release_notes }}' | jq -r .)
-        echo "$release_notes"
+        release_notes="${{ steps.extract_changelog.outputs.release_notes }}"
+        formatted_notes=$(echo -e "$release_notes")
+        echo "$formatted_notes"
+      
       
       
         
@@ -53,10 +55,12 @@ jobs:
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FORMATTED_NOTES: ${{ steps.debugging_release_notes.outputs.formatted_notes }}  # Ensure this is set
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref }}
-        body: ${{ steps.extract_changelog.outputs.release_notes }}
+        body: $FORMATTED_NOTES
+      
       
       
       
