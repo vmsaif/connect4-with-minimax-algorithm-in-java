@@ -41,9 +41,11 @@ sudo apt-get install -f
 
 4. Run the following command to start the game:
 
+You can start the game by searching for it in the applications menu named `connect4` or by running the following command in the terminal:
 ```bash
 /opt/connect4/bin/connect4
 ```
+
 
 ### Option 2: Downloading the JAR File
 
