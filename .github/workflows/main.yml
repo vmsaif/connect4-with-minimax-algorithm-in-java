@@ -23,7 +23,7 @@ jobs:
 
     - name: Extract release notes
       id: extract-release-notes
-      uses: ffurrer2/extract-release-notes@v1.8.0
+      uses: ffurrer2/extract-release-notes@v1
 
   
 
