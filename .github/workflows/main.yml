@@ -45,9 +45,9 @@ jobs:
         release_notes=$(echo '${{ steps.extract_changelog.outputs.release_notes }}' | jq -r .)
         echo "$release_notes"
       
+      
         
       
-
     - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
@@ -56,8 +56,8 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref }}
-        body: |
-          $(echo '${{ steps.extract_changelog.outputs.release_notes }}' | jq -r .)
+        body: ${{ steps.extract_changelog.outputs.release_notes }}
+      
       
       
 
