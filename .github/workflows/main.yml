@@ -19,12 +19,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      
 
     - name: Extract release notes
       id: extract-release-notes
-      uses: ffurrer2/extract-release-notes@v1.17.0
-      with:
-        changelog_file: CHANGELOG.md
+      uses: ffurrer2/extract-release-notes@v1.8.0
+
   
 
     - name: Compile and Build JAR
