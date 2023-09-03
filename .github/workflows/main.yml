@@ -22,7 +22,7 @@ jobs:
       
     - name: Extract release notes from changelog
       id: changelog_reader
-      uses: mindsers/changelog-reader-action@v2
+      uses: mindsers/changelog-reader-action@v2.2.1
       with:
         validation_level: warn
         version: ${{ env.VERSION }}
