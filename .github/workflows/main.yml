@@ -35,7 +35,7 @@ jobs:
     - name: Extract Changelog for Current Release
       id: extract_changelog
       run: |
-        content=$(awk "/^## \[${{ env.VERSION }}\] - /,/^## \[.*\] - /" CHANGELOG.md | tail -n +2 | head -n -1 | sed ':a;N;$!ba;s/\n/\\n/g')
+        content=$(sed -n "/^## \[${{ env.VERSION }}\] - /,/^## \[.*\] - /p" CHANGELOG.md | tail -n +2 | head -n -1 | sed ':a;N;$!ba;s/\n/\\n/g')
         echo "RELEASE_NOTES=$content" >> $GITHUB_ENV 
       
       
