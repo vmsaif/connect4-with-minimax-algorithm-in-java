@@ -20,12 +20,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       
-
-    - name: Extract release notes
-      id: extract-release-notes
-      uses: ffurrer2/extract-release-notes@v1
-
-  
+    - name: Extract release notes from changelog
+      id: changelog_reader
+      uses: mindsers/changelog-reader-action@v2
+      with:
+        validation_level: warn
+        version: ${{ env.VERSION }}
+        path: ./CHANGELOG.md
 
     - name: Compile and Build JAR
       run: |
@@ -47,9 +48,7 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref_name }}
-        body: ${{ steps.extract-release-notes.outputs.release_notes }}
-
-      
+        body: ${{ steps.changelog_reader.outputs.changes }}
 
     - name: Attach JAR to Release
       uses: actions/upload-release-asset@v1
