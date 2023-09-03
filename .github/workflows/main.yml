@@ -146,7 +146,7 @@ jobs:
     
 
     - name: Rename Windows standalone
-      run: move ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ env.VERSION }}.jar ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
+      run: move ${{ env.FILE_NAME }}-1.0.exe ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
 
     - name: Attach Windows Standalone to Release
       uses: actions/upload-release-asset@v1
