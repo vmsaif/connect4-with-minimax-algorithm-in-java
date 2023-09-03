@@ -17,8 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_upload_url: ${{ steps.create_release.outputs.upload_url }}
+      stripped_version: ${{ steps.get_stripped_version.outputs.version }}
 
     steps:
+    - name: Get stripped version
+      id: get_stripped_version
+      run: |
+        STRIPPED_VERSION=${VERSION#v}
+        echo "Stripped version: $STRIPPED_VERSION"
+        echo "::set-output name=version::$STRIPPED_VERSION"
+
     - name: Checkout code
       uses: actions/checkout@v3
       
@@ -88,7 +96,7 @@ jobs:
                   --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar \
                   --main-class ${{ env.MAIN_CLASS }} \
                   --icon assets/icon/${{ env.ICON_NAME }}.icns \
-                  --app-version ${{ env.VERSION }} \
+                  --app-version ${{ needs.build.outputs.stripped_version }} \
                   --type dmg \
                   --dest .
 
@@ -105,8 +113,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ./${{ env.FILE_NAME }}-MacOS-${{ env.VERSION }}.dmg
-        asset_name: ${{ env.FILE_NAME }}-MacOS-${{ env.VERSION }}.dmg
+        asset_path: ./${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}.dmg
+        asset_name: ${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}-MacOS.dmg
         asset_content_type: application/octet-stream
 
   ubuntu_build:
@@ -131,7 +139,7 @@ jobs:
                   --main-class ${{ env.MAIN_CLASS }} \
                   --icon assets/icon/${{ env.ICON_NAME }}.png \
                   --resource-dir resources \
-                  --app-version ${{ env.VERSION }} \
+                  --app-version ${{ needs.build.outputs.stripped_version }} \
                   --type deb \
                   --dest .
 
@@ -147,8 +155,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ./${{ env.FILE_NAME }}-Ubuntu-${{ env.VERSION }}_amd64.deb
-        asset_name: ${{ env.FILE_NAME }}-Ubuntu-${{ env.VERSION }}_amd64.deb
+        asset_path: ./${{ env.FILE_NAME }}_${{ needs.build.outputs.stripped_version }}-1_amd64.deb
+        asset_name: ${{ env.FILE_NAME }}-${{ env.VERSION }}-linux_amd64.deb
         asset_content_type: application/octet-stream
 
   windows_build:
@@ -179,7 +187,7 @@ jobs:
                 --main-class ${{ env.MAIN_CLASS }} `
                 --icon assets/icon/${{ env.ICON_NAME }}.ico `
                 --win-shortcut `
-                --app-version ${{ env.VERSION }} `
+                --app-version ${{ needs.build.outputs.stripped_version }} `
                 --type exe `
                 --dest .
 
@@ -195,8 +203,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
-        asset_name: ${{ env.FILE_NAME }}-Windows-${{ env.VERSION }}.exe
+        asset_path: ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}.exe
+        asset_name: ${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}-windows.exe
         asset_content_type: application/octet-stream
 
 
