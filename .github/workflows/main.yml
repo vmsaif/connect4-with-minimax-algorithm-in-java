@@ -41,10 +41,13 @@ jobs:
       
       
     - name: Debugging Release Notes
+      id: debugging_release_notes
       run: |
         release_notes="${{ steps.extract_changelog.outputs.release_notes }}"
         formatted_notes=$(echo -e "$release_notes")
         echo "$formatted_notes"
+        echo "::set-output name=formatted_notes::$formatted_notes"
+      
       
       
              
@@ -58,7 +61,8 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref }}
-        body: $FORMATTED_NOTES
+        body: ${{ steps.debugging_release_notes.outputs.formatted_notes }}
+
       
       
       
