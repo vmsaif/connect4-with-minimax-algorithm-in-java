@@ -166,12 +166,12 @@ jobs:
 
     - name: Create Standalone for Windows
       run: |
-        jpackage --input ${{ env.OUT_DIR }} \
-                --name ${{ env.FILE_NAME }} \
-                --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar \
-                --main-class ${{ env.MAIN_CLASS }} \
-                --win-shortcut \
-                --type exe \
+        jpackage --input out `
+                --name connect4 `
+                --main-jar connect4-v1.1.0.jar `
+                --main-class App `
+                --win-shortcut `
+                --type exe `
                 --dest .
 
     - name: List contents of out directory (Windows)
