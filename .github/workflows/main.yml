@@ -35,8 +35,9 @@ jobs:
     - name: Extract Changelog for Current Release
       id: extract_changelog
       run: |
-        content=$(awk "/\[${{ env.VERSION }}\]/,0" CHANGELOG.md)
+        content=$(awk "/\[${{ env.VERSION }}\]/,0" CHANGELOG.md | sed ':a;N;$!ba;s/\n/\\n/g')
         echo "RELEASE_NOTES=$content" >> $GITHUB_ENV 
+      
 
     - name: Create GitHub Release
       id: create_release
