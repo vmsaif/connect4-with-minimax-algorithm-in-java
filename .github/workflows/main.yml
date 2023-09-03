@@ -47,8 +47,7 @@ jobs:
         echo "$formatted_notes"
       
       
-      
-        
+             
       
     - name: Create GitHub Release
       id: create_release
