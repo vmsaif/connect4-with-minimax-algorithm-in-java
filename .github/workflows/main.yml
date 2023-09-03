@@ -35,9 +35,12 @@ jobs:
     - name: Extract Changelog for Current Release
       id: extract_changelog
       run: |
-        content=$(sed -n "/^## \[${{ env.VERSION }}\] - /,/^## \[.*\] - /p" CHANGELOG.md | tail -n +2 | head -n -1 | sed ':a;N;$!ba;s/\\n/\n/g')
-        echo "RELEASE_NOTES=$content" >> $GITHUB_ENV 
+        content=$(sed -n "/^## \[${{ env.VERSION }}\] - /,/^## \[.*\] - /p" CHANGELOG.md | tail -n +2 | head -n -1)
+        echo "::set-output name=release_notes::$content"
       
+    - name: Debugging Release Notes
+      run: echo "${{ steps.extract_changelog.outputs.release_notes }}"
+        
       
 
     - name: Create GitHub Release
@@ -48,7 +51,8 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref }}
-        body: ${{ env.RELEASE_NOTES }}
+        body: ${{ steps.extract_changelog.outputs.release_notes }}
+      
 
     - name: Attach JAR to Release
       uses: actions/upload-release-asset@v1
