@@ -40,6 +40,7 @@ public class Connect4 extends JFrame {
         columnButtons = new JButton[COLUMNS];
 
         createDropButtons();
+        addResetButton();
 
         // set each tile as an unclickable button with a white background to just add circles on top
         for (int row = 0; row < ROWS; row++) {
@@ -80,16 +81,38 @@ public class Connect4 extends JFrame {
                 if (checkWin(WHITE)) {
                     JOptionPane.showMessageDialog(Connect4.this, "WHITE wins!");
                     gameOver = true;
+                    
                 } else if (checkWin(BLACK)) {
                     JOptionPane.showMessageDialog(Connect4.this, "BLACK wins!");
                     gameOver = true;
+                    
                 } else if (checkDraw()) {
                     JOptionPane.showMessageDialog(Connect4.this, "Draw!");
                     gameOver = true;
+                    
                 }
             }
         }
     }
+
+private void addResetButton() {
+    JPanel resetPanel = new JPanel();
+    JButton resetButton = new JButton("Reset");
+    resetButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            // Reset the game
+            
+            isWhiteTurn = true;
+            gameOver = false;
+            runGame();
+        }
+    });
+    resetPanel.add(resetButton);
+    add(resetPanel, BorderLayout.SOUTH);
+    pack();
+    setVisible(true);
+}
+
 
     public void setGridIcon() {
         Component[] components = boardPanel.getComponents();
@@ -134,7 +157,11 @@ public class Connect4 extends JFrame {
                 } 
             }
         }
-        switchTurn();
+
+        // switch turns
+        if(moveMade){
+            switchTurn();
+        }
     }
 
     // Switch turns

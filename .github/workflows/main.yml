@@ -32,6 +32,12 @@ jobs:
         name: ${{ env.FILE_NAME }}-jar-${{ env.VERSION }}
         path: ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ env.VERSION }}.jar
 
+    - name: Extract Changelog for Current Release
+      id: extract_changelog
+      run: |
+        content=$(awk "/\[${{ env.VERSION }}\]/,0" CHANGELOG.md)
+        echo "RELEASE_NOTES=$content" >> $GITHUB_ENV 
+
     - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
@@ -40,6 +46,7 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
+        body: ${{ env.RELEASE_NOTES }}
 
     - name: Attach JAR to Release
       uses: actions/upload-release-asset@v1
