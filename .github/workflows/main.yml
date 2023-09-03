@@ -36,10 +36,15 @@ jobs:
       id: extract_changelog
       run: |
         content=$(sed -n "/^## \[${{ env.VERSION }}\] - /,/^## \[.*\] - /p" CHANGELOG.md | tail -n +2 | head -n -1)
-        echo "::set-output name=release_notes::$content"
+        encoded_content=$(echo "$content" | jq -R -s -c .)
+        echo "::set-output name=release_notes::$encoded_content"
+      
       
     - name: Debugging Release Notes
-      run: echo "${{ steps.extract_changelog.outputs.release_notes }}"
+      run: |
+        release_notes=$(echo '${{ steps.extract_changelog.outputs.release_notes }}' | jq -r .)
+        echo "$release_notes"
+      
         
       
 
@@ -51,7 +56,9 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref }}
-        body: ${{ steps.extract_changelog.outputs.release_notes }}
+        body: |
+          $(echo '${{ steps.extract_changelog.outputs.release_notes }}' | jq -r .)
+      
       
 
     - name: Attach JAR to Release
