@@ -86,7 +86,7 @@ Make sure you have JRE installed on your computer. You can download JRE [here](h
 
    Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
 
-   Ensure that Java is added to your `PATH` so that it can be accessed from the command prompt. (Most installers will do this for you.) To check if Java is installed, run the following command in Command Prompt or PowerShell:
+   Ensure that Java is added to your `PATH` so that it can be accessed from the command prompt. During the jre installation, You will have option to add to your path. Is is unchecked by default. Make sure to enable it.  To check if Java is installed, run the following command in Command Prompt or PowerShell:
    ```bash
    java -version
    ```

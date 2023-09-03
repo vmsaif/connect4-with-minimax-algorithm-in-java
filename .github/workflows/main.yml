@@ -103,7 +103,7 @@ jobs:
       run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class App --type deb --dest .
     
     - name: List contents of out directory
-      run: ls ${{ env.OUT_DIR }}
+      run: ls -lh .
 
     - name: Rename Ubuntu standalone
       run: mv ${{ env.FILE_NAME }}_1.0-1_amd64.deb ${{ env.FILE_NAME }}-Ubuntu-${{ env.VERSION }}_amd64.deb
@@ -142,7 +142,7 @@ jobs:
       run: jpackage --input ${{ env.OUT_DIR }} --name ${{ env.FILE_NAME }} --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar --main-class App --type exe --dest .
       
     - name: List contents of out directory (Windows)
-      run: Get-ChildItem -Path ${{ env.OUT_DIR }}
+      run: Get-ChildItem -Path .
     
 
     - name: Rename Windows standalone

@@ -120,9 +120,9 @@ public class Computer {
         if(depth == 0 || blackWon || whiteWon || draw) {
             // evaluate the board from the computer's perspective
             if(blackWon){
-                result = 100 + depth;
+                result = 1000 + depth;
             } else if(whiteWon){
-                result = -(100 + depth);
+                result = -(1000 + depth);
             } else if(draw){
                 result = 0;
             } else {
