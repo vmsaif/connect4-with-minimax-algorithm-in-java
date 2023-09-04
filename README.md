@@ -111,6 +111,19 @@ Make sure you have JRE installed on your computer. You can download JRE [here](h
 
 ## **Windows**
 
+### Option 1: Downloading the EXE File (simpler)
+
+1. Open the folder where you downloaded the EXE file.
+2. Double-click on the EXE file to run it.
+
+At this point, windows smart screen will block the app from running. As I am not a signed developer by Microsoft, this warning will appear. 
+
+3. If you get the warning, click on "More Info" and then click on "Run Anyway".
+4. Wait for the installation to complete.
+5. Run the game from the Desktop shortcut.
+
+### Option 2: Downloading the JAR File
+
 1. **Confirming Java**:
 
    Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
@@ -144,7 +157,7 @@ The game is written in Java and can be compiled using the following steps:
 
 
 ## Bugs:
-I have not found any bugs in the program yet. If you find any, please let me know by opening an issue from the issue tab.
+I have not found any bugs in the program yet. If you find any, please let me know by opening an issue from [here](https://github.com/vmsaif/connect4-with-minimax-algorithm-in-java/issues/)
 
 ## Acknowledgements
 - [Icon](https://icon-icons.com/icon/grid-board-cell-table/187134)
