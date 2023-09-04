@@ -186,7 +186,8 @@ jobs:
                 --main-jar ${{ env.FILE_NAME }}-${{ env.VERSION }}.jar `
                 --main-class ${{ env.MAIN_CLASS }} `
                 --icon assets/icon/${{ env.ICON_NAME }}.ico `
-                --win-shortcut `
+                --win-shortcut ` 
+                --win-menu ` 
                 --app-version ${{ needs.build.outputs.stripped_version }} `
                 --type exe `
                 --dest .
