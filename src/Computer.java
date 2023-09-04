@@ -67,6 +67,7 @@ public class Computer {
         }
     }
 
+    // evaluate the board for a given player - this method is responsible for the heuristic of AI
     private int evaluateBoardForPlayer(char player) {
         int score = 0;
 
@@ -108,7 +109,7 @@ public class Computer {
     }
 
     
-    // minimax algorithm with alpha-beta pruning
+    // minimax algorithm with alpha-beta pruning - handles the decision tree
     private int minimax(int depth, int alpha, int beta, boolean isWhitesTurn) {
         int result = 0;
         boolean stopSearch = false;
