@@ -12,6 +12,17 @@ The AI uses the minimax algorithm with alpha-beta pruning to determine the best 
 
 The AI will also use alpha-beta pruning to reduce the number of nodes that need to be evaluated. Alpha-beta pruning will reduce the number of nodes that are bad moves by either the AI or the user. This will make the AI more efficient and faster. 
 
+## About This Repository
+
+This repository uses CI/CD to automatically build and release the program for Windows, macOS, and Linux. The program is packaged as a JAR file. The JAR file is then packaged into an EXE file for Windows, a DMG file for macOS, and a DEB file for Linux. The program is built using GitHub Actions and is released using GitHub Releases. The program is built for the following platforms:
+
+- Windows (64-bit)
+- macOS (64-bit)
+- Linux (64-bit)
+- JAR File
+
+You can find them here in the [Releases](https://github.com/vmsaif/connect4-with-minimax-algorithm-in-java/releases) section.
+
 ## Running the Program
 
 - Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
