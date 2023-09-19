@@ -27,9 +27,6 @@ You can find them here in the [Releases](https://github.com/vmsaif/connect4-with
 
 - Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
 
-Downloading the jar file is preferred. You can download the release version of the Game from the latest release [here](https://github.com/vmsaif/connect4-with-minimax-algorithm-in-java/releases). The program is packaged as a JAR file. You can run the program by double-clicking on the JAR file.
-
-## **Ubuntu**
 
 ### Option 1: Downloading the DEB File (simpler)
 
