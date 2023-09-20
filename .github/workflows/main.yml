@@ -45,7 +45,6 @@ jobs:
         # Generate a temporary manifest file using echo
         echo "Main-Class: ${{ env.MAIN_CLASS }}" > customManifest.txt
         jar cvfm ${{ env.OUT_DIR }}/${{ env.FILE_NAME }}-${{ env.VERSION }}.jar \
-                  customManifest.txt \
                   -C ${{ env.OUT_DIR }} ./
 
     - name: Upload JAR as Artifact
@@ -189,7 +188,7 @@ jobs:
                 --win-shortcut `
                 --win-menu `
                 --app-version ${{ needs.build.outputs.stripped_version }} `
-                --type msi `
+                --type exe `
                 --dest .
 
     - name: List contents of out directory (Windows)
@@ -204,8 +203,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.build.outputs.release_upload_url }}
-        asset_path: ${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}.msi
-        asset_name: ${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}-windows.msi
+        asset_path: ${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}.exe
+        asset_name: ${{ env.FILE_NAME }}-${{ needs.build.outputs.stripped_version }}-windows.exe
         asset_content_type: application/octet-stream
 
 
