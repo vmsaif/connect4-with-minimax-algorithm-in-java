@@ -124,7 +124,7 @@ Make sure you have JRE installed on your computer. You can download JRE [here](h
 1. Open the folder where you downloaded the EXE file.
 2. Double-click on the EXE file to run it.
 
-At this point, windows smart screen will block the app from running. As I am not a signed developer by Microsoft, this warning will appear. 
+At this point, the Windows smart screen will block the app from running. As I am not a signed developer by Microsoft, this warning will appear. 
 
 3. If you get the warning, click on "More Info" and then click on "Run Anyway".
 4. Wait for the installation to complete.
@@ -136,7 +136,7 @@ At this point, windows smart screen will block the app from running. As I am not
 
    Make sure you have JRE installed on your computer. You can download JRE [here](https://adoptium.net/) or [here](https://www.oracle.com/java/technologies/javase-jre8-downloads.html).
 
-   Ensure that Java is added to your `PATH` so that it can be accessed from the command prompt. During the jre installation, You will have option to add to your path. Is is unchecked by default. Make sure to enable it.  To check if Java is installed, run the following command in Command Prompt or PowerShell:
+   Ensure that Java is added to your `PATH` so that it can be accessed from the command prompt. During the JRE installation, You will have the option to add to your path. It is unchecked by default. Make sure to enable it.  To check if Java is installed, run the following command in Command Prompt or PowerShell:
    ```bash
    java -version
    ```
@@ -162,6 +162,9 @@ The game is written in Java and can be compiled using the following steps:
 - Go to the root directory
 - Run the command `javac -d bin src/*.java` to compile the Java file.
 - Run the command `java -cp bin/ App` to run the game.
+
+## Screenshots
+![Screenshot 1](assets\screenshot\screenshot.gif "Computer Playing Black")
 
 
 ## Bugs:
