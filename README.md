@@ -165,7 +165,7 @@ The game is written in Java and can be compiled using the following steps:
 
 ## Screenshots
 
-<img src="assets\screenshot\screenshot.gif" width="700" height="400" />
+<img src="assets\screenshot\screenshot.gif" width="550" height="400" />
 
 
 ## Bugs:
