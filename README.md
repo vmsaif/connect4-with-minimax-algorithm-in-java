@@ -164,7 +164,8 @@ The game is written in Java and can be compiled using the following steps:
 - Run the command `java -cp bin/ App` to run the game.
 
 ## Screenshots
-![Screenshot 1](assets\screenshot\screenshot.gif "Computer Playing Black")
+
+<img src="assets\screenshot\screenshot.gif" width="700" height="400" />
 
 
 ## Bugs:
